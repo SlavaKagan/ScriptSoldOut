@@ -22,8 +22,20 @@ SMTP_SERVER = os.getenv("SMTP_SERVER")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER")
 SMTP_PASS = os.getenv("SMTP_PASS")
-TIMEOUT = int(os.getenv("HTTP_TIMEOUT", "20"))
-REQUEST_DELAY_SEC = float(os.getenv("REQUEST_DELAY_SEC", "1.0"))  # polite delay between requests
+def safe_int(value, default):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+def safe_float(value, default):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+TIMEOUT = safe_int(os.getenv("HTTP_TIMEOUT"), 20)
+REQUEST_DELAY_SEC = safe_float(os.getenv("REQUEST_DELAY_SEC"), 1.0)
 CSS_SELECTOR = os.getenv("CSS_SELECTOR", "").strip()  # optional: narrow search area
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
