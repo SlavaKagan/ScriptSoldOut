@@ -10,6 +10,9 @@ from typing import Optional, List, Tuple
 import requests
 from bs4 import BeautifulSoup
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # --- Configuration from env ---
 # Multiple URLs: accept newline, comma-separated, or JSON array.
 _TARGET_URLS_RAW = os.getenv("TARGET_URLS", "").strip()
